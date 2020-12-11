@@ -11,7 +11,7 @@ app.use(cors());
 
 const postComments= {};
 app.get('/posts/:id/comments',(req,res)=>{
-    
+    console.log('get',req.params.id,postComments[req.params.id])
     res.status(201).send( postComments[req.params.id] || [] );
 
 });
@@ -28,6 +28,7 @@ app.post('/posts/:id/comments',(req,res)=>{
 
     comments.push(comment);
     postComments[req.params.id]= comments;
+    console.log(comments);
     res.status(201).send(comments);
 
 } );
