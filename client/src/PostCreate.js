@@ -8,7 +8,6 @@ function PostCreate() {
     const createPost= async (e)=>{
         e.preventDefault()
         await Axios.post('http://localhost:3000/posts',{title})
-
         setTitle('');
     }
     
