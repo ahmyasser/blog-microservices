@@ -6,10 +6,12 @@ function CommentCreate({postId}) {
     const [content, setContent] = useState('')
     
     const createComment= async (e)=>{
-        e.preventDefault()
+        e.preventDefault();
+        if(content){
         await Axios.post(`http://localhost:3001/posts/${postId}/comments`,{content})
 
         setContent('');
+        }
     }
     
     return (

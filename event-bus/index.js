@@ -7,16 +7,23 @@ const axios = require('axios');
 const app = express();
 app.use(bodyParser.json())
 
+const events = [];
 app.post('/events',(req,res)=>{
 
     let event =  req.body;
-
+    events.push(event);
     axios.post('http://localhost:3000/events', event);
     axios.post('http://localhost:3001/events', event);
     axios.post('http://localhost:3002/events', event);
+    axios.post('http://localhost:3003/events', event);
+
 
     res.send({status:'OK'});
 
+})
+
+app.get('/events',(req,res)=>{
+    res.send(events);
 })
 
 const port = 3005;
