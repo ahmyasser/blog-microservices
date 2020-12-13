@@ -1,4 +1,5 @@
 const express = require('express');
+const util = require('util');
 
 const cors= require('cors');
 const bodyParser = require('body-parser');
@@ -21,10 +22,20 @@ app.post('/events',(req,res)=>{
         posts[id]={id,title, comments:[]};
     }
     if(req.body.type === 'CommentCreated'){
-        let {id,content,postId} = req.body.data;
-        posts[postId].comments.push({id, content});
+        let {id,content,postId,status} = req.body.data;
+        posts[postId].comments.push({id, content, status});
     }
-console.log(posts);
+    if(req.body.type === 'CommentUpdated'){
+        let {id,content,postId,status} = req.body.data;
+        let comment = posts[postId].comments.find((comment)=>{
+            return comment.id === id;
+        })
+        comment.status=status;
+        comment.content=content;
+        console.log(posts[postId]);
+    }
+//console.log(posts);
+console.log(util.inspect(posts, false, null, true /* enable colors */))
 res.send({});
 })
 
